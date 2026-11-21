@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>15 Câu Hỏi Giải Đố & 4 Hộp Quà</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Màn hình vào phòng -->
+  <div id="lobby-screen" class="screen">
+    <div class="card">
+      <div class="badge">15 ROOMS CO-OP</div>
+      <h1>🔐 VƯỢT 15 PHÒNG GIẢI ĐỐ</h1>
+      <p>Cùng nhau trả lời hết 15 câu hỏi để bấm <strong>Tiếp tục</strong> và mở 1 trong 4 hộp quà!</p>
+
+      <label for="player-name">Tên của bạn</label>
+      <input type="text" id="player-name" placeholder="VD: Khánh Vy" maxlength="14" />
+
+      <label for="room-code">Mã phòng chung</label>
+      <input type="text" id="room-code" placeholder="VD: 2212" maxlength="12" />
+
+      <button id="join-btn" class="btn-primary">VÀO PHÒNG NGAY</button>
+      <div class="helper-note">
+        Mở 2 tab cùng nhập <strong>cùng Mã phòng</strong> để test đồng bộ 2 người chơi.
+      </div>
+    </div>
+  </div>
+
+  <!-- Màn hình chơi chính -->
+  <div id="game-screen" class="screen hidden">
+    <header class="top-bar">
+      <div class="room-info">
+        <span>Phòng: <strong id="hud-room">---</strong></span>
+        <span class="divider">|</span>
+        <span>Tiến độ: <strong id="hud-progress">Câu 1 / 15</strong></span>
+      </div>
+      <div class="players-status" id="players-list"></div>
+    </header>
+
+    <main class="room-stage">
+      <div class="puzzle-card" id="puzzle-card">
+        <div class="room-header">
+          <span class="room-tag" id="room-number-tag">CÂU HỎI #01</span>
+          <span class="room-theme" id="room-theme-tag">Phòng 01</span>
+        </div>
+
+        <h2 id="room-title">Câu Đố Số 1</h2>
+        <p class="puzzle-prompt" id="puzzle-prompt">Đang tải câu hỏi...</p>
+
+        <div id="hint-box" class="hint-box hidden"></div>
+
+        <form id="answer-form" class="answer-form">
+          <input
+            type="text"
+            id="answer-input"
+            placeholder="Nhập đáp án..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="btn-primary">XÁC NHẬN</button>
+        </form>
+
+        <div class="actions-row">
+          <button type="button" id="hint-btn" class="btn-secondary">💡 Gợi ý</button>
+          <span id="feedback-msg" class="feedback"></span>
+        </div>
+      </div>
+
+      <!-- Khung chat bàn bạc -->
+      <aside class="chat-panel">
+        <div class="chat-header">💬 Chat trong phòng</div>
+        <div id="chat-messages" class="chat-messages"></div>
+        <form id="chat-form" class="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Nhắn tin bàn đáp án..." maxlength="80" autocomplete="off" />
+          <button type="submit">Gửi</button>
+        </form>
+      </aside>
+    </main>
+
+    <!-- Màn hình sau khi hoàn thành 15 câu: bấm Tiếp tục để chọn hộp quà -->
+    <div id="completed-modal" class="modal hidden">
+      <div class="card center-card">
+        <div class="badge">HOÀN THÀNH 15 / 15 CÂU</div>
+        <h2>🎉 ĐÃ TRẢ LỜI HẾT 15 CÂU HỎI!</h2>
+        <p>Hai bạn đã vượt qua trọn vẹn 15 thử thách. Bấm <strong>Tiếp tục</strong> để mở 4 hộp quà nhé!</p>
+        <button id="continue-to-gifts-btn" class="btn-primary">TIẾP TỤC</button>
+      </div>
+    </div>
+
+    <!-- Màn hình 4 hộp quà -->
+    <div id="gift-modal" class="modal hidden">
+      <div class="card gift-card">
+        <div class="badge">4 HỘP QUÀ BÍ MẬT</div>
+        <h2>🎁 CHỌN 1 HỘP QUÀ</h2>
+        <p>Bấm vào 1 trong 4 hộp quà bên dưới để xem món quà bên trong!</p>
+
+        <div id="gift-boxes-grid" class="gift-boxes-grid"></div>
+
+        <!-- Khu vực hiển thị rõ nội dung bên trong hộp quà đã bấm -->
+        <div id="opened-gift-reveal" class="opened-gift-reveal hidden"></div>
+
+        <div class="gift-actions">
+          <button id="replay-btn" class="btn-secondary">🔄 Chơi lại từ Câu 1</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
